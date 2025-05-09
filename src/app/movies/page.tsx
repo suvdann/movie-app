@@ -7,8 +7,7 @@ const Home = () => {
     <div className="h-screen w-screen bg-gray-50">
       <Header />
       <div className="px-6 mt-10">
-        <Feature/>
-      
+        <Feature />
       </div>
     </div>
   );
