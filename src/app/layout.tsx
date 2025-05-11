@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import  {ThemeProvider as NextThemesProvider} from "next-themes";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,7 +27,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        
+        <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+           {/* defaultTheme="system"- anhni theme-g systemiin daguu songono
+           enableSystem-	Системийн theme-г зөвшөөрнө
+           disableTransitionOnChange	Theme өөрчлөгдөх үед анимэйшн хийхгүй
+           */}
+           {children}
+        </NextThemesProvider>
+       
       </body>
     </html>
   );

@@ -7,7 +7,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, Moon, Film, ChevronRight, Sun } from "lucide-react";
-import { useState } from "react";
+
+import { useTheme } from "next-themes";
 
 const genres = [
   "Action",
@@ -40,9 +41,11 @@ const genres = [
 ];
 
 export const Header = () => {
-  const { setTheme, resolvedTheme } = useState();
+  const { setTheme, resolvedTheme } = useTheme();
+  const isDarkThemeActive=resolvedTheme==="dark";
+  const toggleTheme=()=>setTheme(isDarkThemeActive?"light":"dark")
   return (
-    <div className="w-full flex items-center justify-between px-6 py-4 shadow bg-white">
+    <div className="relative w-full flex items-center justify-between px-6 py-4 shadow ">
       {/* Logo */}
       <div className="flex items-center gap-2 text-indigo-700 font-bold text-lg">
         <Film className="w-5 h-5" />
@@ -64,12 +67,12 @@ export const Header = () => {
               See lists of movies by gene
             </div>
 
-            <div className="grid grid-cols-3 gap-2 max-h-[300px] overflow-auto ">
+            <div className="grid grid-cols-3 gap-2 max-h-[300px] overflow-auto  ">
               {genres.map((genre) => (
                 <Button
                   key={genre}
                   variant="outline"
-                  className=" w-full h-[20px] rounded-full p-[2px]"
+                  className=" w-full h-[20px] rounded-full p-[2px] z-20"
                   //  gap-spacing/2
                 >
                   {genre}
@@ -85,8 +88,9 @@ export const Header = () => {
       </div>
 
       {/* Dark Mode Button */}
-      <Button variant="outline" className="bg-white">
-        <Moon />
+      <Button size="icon" onClick={toggleTheme} >
+        {/* variant="outline" className="bg-white" */}
+        {isDarkThemeActive?<Sun/>:<Moon />}
       </Button>
     </div>
   );
