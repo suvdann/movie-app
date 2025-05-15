@@ -1,48 +1,30 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "./_components/Header";
-import { Feature } from "./_components/Feature";
-import { Card } from "./_components/Card";
+import { Hero } from "./_components/Hero";
+
+import { MovieFooter } from "./_components/Footer";
+import { UpcomingMovies } from "./_components/UpcomingMovies";
+import { PopularMovies } from "./_components/PopularMovies";
+import { TopRatedMovies } from "./_components/TopRatedMovies";
+// import {  MobileHero } from "./_components/Mobile";
+
 
 const Home = () => {
-    const slide = [
-    {
-      src: "/Wicked.png",
-      title: "Wicked",
-      rating: "6.9",
-      overview:
-        "Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads.  ",
-    },
-    {
-      src: "/Gladiator.png",
-      title: "Gradiator ",
-      rating: "6.9",
-      overview:
-        "After his home is conquered by the tyrannical emperors who now lead Rome, Lucius is forced to enter the Colosseum and must look to his past to find strength to return the glory of Rome to its people.",
-    },
-    {
-       src: "/Moana.png",
-      title: "Moana 2 ",
-      rating: "6.9",
-      overview:
-      "After receiving an unexpected call from her wayfinding ancestors, Moana must journey to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced."
-    },
-  ];
-  
-  const [api, setApi] = useState(null);
-
-  return (
-    <div className="h-screen w-screen">
-      <Header />
+ return (
+    <div className="w-full min-h-screen">
       <div className="px-6 mt-10">
-        <Feature
-          setApi={setApi}
-          slide={slide}
-          current={1} // default
-          count={slide.length}
-        />
+          <Hero
+            current={1}
+            count={5}
+          />
+        
       </div>
-      <Card/>
+
+<UpcomingMovies/>
+<PopularMovies/>
+<TopRatedMovies/>
+      <MovieFooter />
     </div>
   );
 };

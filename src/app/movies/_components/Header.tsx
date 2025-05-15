@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronDown, Moon, Film, ChevronRight, Sun } from "lucide-react";
+import { ChevronDown, Moon, Film, ChevronRight, Sun, Search } from "lucide-react";
 
 import { useTheme } from "next-themes";
 
@@ -44,8 +44,9 @@ export const Header = () => {
   const { setTheme, resolvedTheme } = useTheme();
   const isDarkThemeActive=resolvedTheme==="dark";
   const toggleTheme=()=>setTheme(isDarkThemeActive?"light":"dark")
+  
   return (
-    <div className="relative w-full flex items-center justify-between px-6 py-4 shadow ">
+    <div className=" relative w-[375px] sm:w-full flex items-center justify-between px-6 py-4 shadow bg ">
       {/* Logo */}
       <div className="flex items-center gap-2 text-indigo-700 font-bold text-lg">
         <Film className="w-5 h-5" />
@@ -56,7 +57,7 @@ export const Header = () => {
         {/* Genre Dropdown */}
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button variant="outline" className=" flex items-center gap-2">
               <ChevronDown className="w-4 h-4" />
               Genre
             </Button>
@@ -84,8 +85,12 @@ export const Header = () => {
         </Popover>
 
         {/* Search */}
-        <Input className="w-[300px]" placeholder="Search..." />
+        <div className=" hidden lg:block lg:flex  lg:items-center lg:border lg:w-[379px]  lg:rounded-lg border-[#E4E4E7] ">
+             <Search className="bg-[#FFFFFF]" />
+        <Input className=" border-none  outline-none"  placeholder="Search..."  /></div>
       </div>
+
+         <Button variant="outline" className=" block lg:hidden ">  <Search  /></Button>
 
       {/* Dark Mode Button */}
       <Button size="icon" onClick={toggleTheme} >

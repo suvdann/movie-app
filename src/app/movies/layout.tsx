@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import  {ThemeProvider as NextThemesProvider} from "next-themes";
-import { Header } from "./movies/_components/Header";
+import { Header } from "./_components/Header";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,6 +34,7 @@ export default function RootLayout({
            enableSystem-	Системийн theme-г зөвшөөрнө
            disableTransitionOnChange	Theme өөрчлөгдөх үед анимэйшн хийхгүй
            */}
+               <Header/>
            {children}
         </NextThemesProvider>
        
