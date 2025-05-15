@@ -6,9 +6,18 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronDown, Moon, Film, ChevronRight, Sun, Search } from "lucide-react";
+import {
+  ChevronDown,
+  Moon,
+  Film,
+  ChevronRight,
+  Sun,
+  Search,
+} from "lucide-react";
 
 import { useTheme } from "next-themes";
+import { MovileSearch } from "./Search";
+// import { Detail } from "@/app/details/[id]/page";
 
 const genres = [
   "Action",
@@ -42,11 +51,12 @@ const genres = [
 
 export const Header = () => {
   const { setTheme, resolvedTheme } = useTheme();
-  const isDarkThemeActive=resolvedTheme==="dark";
-  const toggleTheme=()=>setTheme(isDarkThemeActive?"light":"dark")
-  
+  const isDarkThemeActive = resolvedTheme === "dark";
+  const toggleTheme = () => setTheme(isDarkThemeActive ? "light" : "dark");
+
   return (
     <div className=" relative w-[375px] sm:w-full flex items-center justify-between px-6 py-4 shadow bg ">
+      {/* <Detail id={id} /> */}
       {/* Logo */}
       <div className="flex items-center gap-2 text-indigo-700 font-bold text-lg">
         <Film className="w-5 h-5" />
@@ -56,14 +66,14 @@ export const Header = () => {
       <div className="flex items-center gap-4">
         {/* Genre Dropdown */}
         <Popover>
-          <PopoverTrigger asChild>
+          <PopoverTrigger asChild className="">
             <Button variant="outline" className=" flex items-center gap-2">
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className=" w-4 h-4" />
               Genre
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[577px]">
-            <div className="text-sm font-bold   ">Genres</div>
+          <PopoverContent className="w-[577px] hidden lg:block ">
+            <div className="text-sm font-bold">Genres</div>
             <div className="border-b-[1px]  grid p-[4px] size-16px">
               See lists of movies by gene
             </div>
@@ -74,7 +84,6 @@ export const Header = () => {
                   key={genre}
                   variant="outline"
                   className=" w-full h-[20px] rounded-full p-[2px] z-20"
-                  //  gap-spacing/2
                 >
                   {genre}
                   <ChevronRight />
@@ -85,17 +94,19 @@ export const Header = () => {
         </Popover>
 
         {/* Search */}
-        <div className=" hidden lg:block lg:flex  lg:items-center lg:border lg:w-[379px]  lg:rounded-lg border-[#E4E4E7] ">
-             <Search className="bg-[#FFFFFF]" />
-        <Input className=" border-none  outline-none"  placeholder="Search..."  /></div>
+        <div className=" hidden lg:block lg:flex  lg:items-center lg:border lg:w-[379px]  lg:rounded-lg lg:border-[#E4E4E7] p-1 ">
+          <Search />
+          <Input
+            className="border-none outline-none  focus:outline-none shadow-none"
+            placeholder="Search..."
+          />
+        </div>
       </div>
 
-         <Button variant="outline" className=" block lg:hidden ">  <Search  /></Button>
+      <MovileSearch />
 
-      {/* Dark Mode Button */}
-      <Button size="icon" onClick={toggleTheme} >
-        {/* variant="outline" className="bg-white" */}
-        {isDarkThemeActive?<Sun/>:<Moon />}
+      <Button size="icon" onClick={toggleTheme}>
+        {isDarkThemeActive ? <Sun /> : <Moon />}
       </Button>
     </div>
   );
