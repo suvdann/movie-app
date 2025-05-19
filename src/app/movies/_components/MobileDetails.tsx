@@ -23,7 +23,7 @@ type Props = {
   writers: string[];
   stars: string[];
 };
-export const Detail = ({ id, director, writers, stars }: Props) => {
+export const MobileDetail = ({ id }: Props) => {
   const [movie, setMovie] = useState<any>(null);
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [similar, setSimilar] = useState<any[]>([]);
@@ -57,9 +57,9 @@ export const Detail = ({ id, director, writers, stars }: Props) => {
   }
 
   return (
-    <div className="px-[108px] ">
+    <div className="">
       <div className="flex justify-center  flex-col">
-        <p className="font-bold text-[36px]">{movie.title}</p>
+        <p className="font-bold text-[32px]">{movie.title}</p>
         <p>
           {movie.release_date} • PG • {formatRuntime(movie.runtime)}
         </p>
@@ -77,18 +77,8 @@ export const Detail = ({ id, director, writers, stars }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex h-[428px]">
-        <Card className="w-[290px]">
-          <div className="relative  h-[233px] sm:h-[428px] overflow-hidden rounded-t-lg m-0 p-0">
-            <Image
-              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-              alt="poster"
-              fill
-              className="object-cover "
-            />
-          </div>
-        </Card>
-        <Card className="w-[760px] ml-[32px]">
+      <div className="">
+        <Card className="flex flex-start w-[375px] ">
           <div className="relative w-full h-[428px] sm:h-[500px] overflow-hidden rounded-lg">
             <iframe
               className="absolute top-0 left-0 w-full h-full"
@@ -97,23 +87,39 @@ export const Detail = ({ id, director, writers, stars }: Props) => {
               allowFullScreen
             ></iframe>
           </div>
-        </Card>{" "}
-      </div>
-      {/* MovieDescription */}
-      <div className="flex flex-col justify-between gap-5">
-        <div className="flex  gap-5 mt-[32px]">
-          {movie.genres.map((genre: any) => (
-            <Button
-              variant="outline"
-              className="border rounded-full border-[#E4E4E7] bg-transparent"
-              key={genre.id}
-            >
-              {genre.name}
-            </Button>
-          ))}
+        </Card>
+        <div>
+          <Card className="w-[375px]  flex flex-row">
+            <div className="relative w-[100px] h-[148px]  overflow-hidden  m-0 p-0">
+              <Image
+                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                alt="poster"
+                fill
+                className="object-cover "
+              />
+            </div>
+
+            <div className="flex flex-col  w-[201px] ">
+              <div className="flex flex-wrap gap-2">
+                {movie.genres.map((genre: any) => (
+                  <Button
+                    variant="outline"
+                    className="border rounded-full border-[#E4E4E7] bg-transparent w-[77px] h-[20px]"
+                    key={genre.id}
+                  >
+                    {genre.name}
+                  </Button>
+                ))}
+              </div>
+              <div className="">
+                <p className="">{movie.overview}</p>
+              </div>
+            </div>
+          </Card>
         </div>
+        {/* MovieDescription */}
+
         <div className="flex flex-col justify-between gap-5">
-          <p>{movie.overview}</p>
           <div className="flex gap-[53px] border-[#E4E4E7] border-b-2">
             <p className="font-bold">Director </p>
             <p className="text-[16px] ">{info?.director}</p>

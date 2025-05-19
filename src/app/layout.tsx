@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import  {ThemeProvider as NextThemesProvider} from "next-themes";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Header } from "./movies/_components/Header";
 import { MovieFooter } from "./movies/_components/Footer";
 const geistSans = Geist({
@@ -29,17 +29,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
-        <NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-           {/* defaultTheme="system"- anhni theme-g systemiin daguu songono
+        <NextThemesProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* defaultTheme="system"- anhni theme-g systemiin daguu songono
            enableSystem-	Системийн theme-г зөвшөөрнө
            disableTransitionOnChange	Theme өөрчлөгдөх үед анимэйшн хийхгүй
-           */} <Header/>
-           
-           {children}
-          <MovieFooter/>
+          //  */}
+          <Header />
+
+          {children}
+          <MovieFooter />
         </NextThemesProvider>
-       
       </body>
     </html>
   );
