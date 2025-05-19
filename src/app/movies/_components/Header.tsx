@@ -17,7 +17,6 @@ import {
 
 import { useTheme } from "next-themes";
 import { MovileSearch } from "./Search";
-// import { Detail } from "@/app/details/[id]/page";
 
 const genres = [
   "Action",
@@ -55,24 +54,24 @@ export const Header = () => {
   const toggleTheme = () => setTheme(isDarkThemeActive ? "light" : "dark");
 
   return (
-    <div className=" relative w-[375px] sm:w-full flex items-center justify-between px-6 py-4 shadow bg ">
+    <div className=" relative  sm:w-full flex items-center  justify-between px-6 py-4 shadow bg ">
       {/* <Detail id={id} /> */}
       {/* Logo */}
       <div className="flex items-center gap-2 text-indigo-700 font-bold text-lg">
         <Film className="w-5 h-5" />
         Movie Z
       </div>
-
-      <div className="flex items-center gap-4">
+{/* _______________________________ */}
+      <div className="hidden lg:block lg:flex lg:items-center lg:justify-center lg:gap-4">
         {/* Genre Dropdown */}
-        <Popover>
-          <PopoverTrigger asChild className="">
-            <Button variant="outline" className=" flex items-center gap-2">
-              <ChevronDown className=" w-4 h-4" />
+        <Popover >
+          <PopoverTrigger asChild className="hidden  lg:block">
+            <Button variant="outline" className="hidden  lg:block lg:flex lg:items-center lg:gap-2">
+              <ChevronDown className=" w-5 h-5" />
               Genre
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[577px] hidden lg:block ">
+          <PopoverContent className="sm:hidden  lg:block w-[577px]  lg:block ">
             <div className="text-sm font-bold">Genres</div>
             <div className="border-b-[1px]  grid p-[4px] size-16px">
               See lists of movies by gene
@@ -94,17 +93,17 @@ export const Header = () => {
         </Popover>
 
         {/* Search */}
-        <div className=" hidden lg:block lg:flex  lg:items-center lg:border lg:w-[379px]  lg:rounded-lg lg:border-[#E4E4E7] p-1 ">
+        <div className=" hidden lg:block lg:flex  lg:items-center  lg:border lg:w-[379px]  lg:rounded-lg lg:border-[#E4E4E7] p-1 ">
           <Search />
           <Input
             className="border-none outline-none  focus:outline-none shadow-none"
-            placeholder="Search..."
+            placeholder="Search.."
           />
         </div>
-      </div>
-
-      <MovileSearch />
-
+         </div>
+      <div className="   "><MovileSearch /></div>
+        
+      
       <Button size="icon" onClick={toggleTheme}>
         {isDarkThemeActive ? <Sun /> : <Moon />}
       </Button>

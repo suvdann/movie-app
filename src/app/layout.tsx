@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import  {ThemeProvider as NextThemesProvider} from "next-themes";
 import { Header } from "./movies/_components/Header";
+import { MovieFooter } from "./movies/_components/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -33,8 +34,10 @@ export default function RootLayout({
            {/* defaultTheme="system"- anhni theme-g systemiin daguu songono
            enableSystem-	Системийн theme-г зөвшөөрнө
            disableTransitionOnChange	Theme өөрчлөгдөх үед анимэйшн хийхгүй
-           */}
+           */} <Header/>
+           
            {children}
+          <MovieFooter/>
         </NextThemesProvider>
        
       </body>

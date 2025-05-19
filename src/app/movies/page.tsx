@@ -24,7 +24,7 @@ const Home = () => {
 <UpcomingMovies/>
 <PopularMovies/>
 <TopRatedMovies/>
-      <MovieFooter />
+      {/* <MovieFooter /> */}
     </div>
   );
 };

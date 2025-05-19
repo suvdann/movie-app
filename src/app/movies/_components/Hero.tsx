@@ -68,7 +68,7 @@ export const Hero = ({ current, count }: HeroProps) => {
                 />
 
                 {/* gradient */}
-                <div className="hidden sm:block absolute inset-0  z-10"></div>
+                <div className="sm:hidden sm:block absolute inset-0  z-10"></div>
 
                 <div className="  hidden md:block md:absolute z-10  p-4 space-y-3  md:top-[100px]   md:justify-center md:items-center ">
                   <ComContent
@@ -80,12 +80,14 @@ export const Hero = ({ current, count }: HeroProps) => {
               </div>
               {/* Text content */}
 
-              <div className="block md:hidden">
+              <div className=" block md:hidden relative h-[260px]">
+               
                 <MobileContent
                   title={el.title}
                   vote_average={Number(el.vote_average).toFixed(1)}
                   overview={el.overview}
                 />
+                
               </div>
             </CarouselItem>
           ))}

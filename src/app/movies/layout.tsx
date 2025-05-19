@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import  {ThemeProvider as NextThemesProvider} from "next-themes";
 import { Header } from "./_components/Header";
+import { MovieFooter } from "./_components/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
            */}
                <Header/>
            {children}
+           {/* <MovieFooter/> */}
         </NextThemesProvider>
        
       </body>
