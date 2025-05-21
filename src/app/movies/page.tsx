@@ -13,13 +13,13 @@ import { TopRatedMovies } from "./_components/TopRatedMovies";
 const Home = () => {
  return (
     <div className="w-full ">
-      <div className=" mt-10 ">
+    
           <Hero
             current={1}
             count={5}
           />
         
-      </div>
+      
 <div className="px-8">
 <UpcomingMovies/>
 <PopularMovies/>

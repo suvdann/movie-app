@@ -75,7 +75,7 @@ useEffect(() => {
               className="w-full  pr-10 border-none outline-none"
             />
             {results.length > 0 && (
-            <div className="absolute top-[42px] left-0 w-full bg-white dark:bg-black  rounded shadow-lg max-h-[400px] overflow-auto z-50">
+            <div className="absolute top-[42px] left-0 w-full bg-white dark:bg-black  rounded shadow-lg h-[729px]  z-50">
             {results.map((movie) => ( 
             <Link href={`/movie/${movie.id}`} key={movie.id}>
             <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 border-b p-2">
