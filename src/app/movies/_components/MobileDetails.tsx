@@ -1,4 +1,7 @@
 "use client";
+
+import YouTube from "react-youtube";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Star } from "lucide-react";
@@ -9,6 +12,7 @@ import { useEffect, useState } from "react";
 import { getMovieTrailer } from "@/hooks/MovieTrailerApi";
 import { getSimilarMovie } from "@/hooks/SimilarMovieApi";
 import { getstaffInfo } from "@/hooks/StaffInfoApi";
+import { Play } from "lucide-react";
 // export const Detail = ({ id }: { id: string })
 type Props = {
   id: string;
@@ -30,6 +34,7 @@ export const MobileDetail = ({ id }: Props) => {
   const [info, setInfo] = useState<any>(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+const [showTrailer, setShowTrailer] = useState(false);
 
   const formatRuntime = (minutes: number): string => {
     const h = Math.floor(minutes / 60);
@@ -57,8 +62,8 @@ export const MobileDetail = ({ id }: Props) => {
   }
 
   return (
-    <div className="">
-      <div className="flex justify-center  flex-col">
+    <div className="w-full">
+      <div className="flex justify-center gap-3  flex-col">
         <p className="font-bold text-[32px]">{movie.title}</p>
         <p>
           {movie.release_date} • PG • {formatRuntime(movie.runtime)}
@@ -77,49 +82,72 @@ export const MobileDetail = ({ id }: Props) => {
           </div>
         </div>
       </div>
-      <div className="">
-        <Card className="flex flex-start w-[375px] ">
-          <div className="relative w-full h-[428px] sm:h-[500px] overflow-hidden rounded-lg">
-            <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src={`https://www.youtube.com/embed/${trailerKey}`}
-              title="Youtube trailer"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </Card>
-        <div>
-          <Card className="w-[375px]  flex flex-row">
-            <div className="relative w-[100px] h-[148px]  overflow-hidden  m-0 p-0">
+      <div className="flex flex-col gap-5">
+  <Card className="relative  w-full h-[428px] overflow-hidden rounded-lg">
+  {!showTrailer ? (
+    <>
+      <Image
+        src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+        alt="poster"
+        fill
+        className="object-cover"
+      />
+       <div className="absolute inset-0 bg-black/40 mt-[364px]">
+        <Button
+          onClick={() => setShowTrailer(true)}
+          className="text-white bg-white/20 hover:bg-white/30 border border-white rounded-lg text-sm px-4 py-2"
+        >
+          <Play className="border rounded-full bg-white text-black "/>Play Trailer
+        </Button>
+      </div>
+    </>
+  ) : (
+    <YouTube
+      videoId={trailerKey}
+      className="w-full h-full"
+      opts={{
+        width: "100%",
+        height: "100%",
+        playerVars: {
+          autoplay: 1,
+        },
+      }}
+    />
+      )}
+</Card>
+        <div className="  flex flex-row">
+          
+            <div className="relative  overflow-hidden  ">
               <Image
                 src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                 alt="poster"
-                fill
-                className="object-cover "
+                width={100}
+                height={148}
+                className="w-[100px] h-[148px]  "
               />
             </div>
 
-            <div className="flex flex-col  w-[201px] ">
+            <div className="flex flex-col  w-full px-8 ">
               <div className="flex flex-wrap gap-2">
                 {movie.genres.map((genre: any) => (
                   <Button
                     variant="outline"
-                    className="border rounded-full border-[#E4E4E7] bg-transparent w-[77px] h-[20px]"
+                    className="border rounded-full border-[#E4E4E7] bg-transparent text-xs px-2 py-0.5 w-[77px] h-[20px]"
                     key={genre.id}
                   >
                     {genre.name}
                   </Button>
                 ))}
               </div>
-              <div className="">
-                <p className="">{movie.overview}</p>
-              </div>
+            
+                <p className="text-xs text-gray-800 mt-2 overflow-hidden ">{movie.overview}</p>
+              
             </div>
-          </Card>
+         
         </div>
         {/* MovieDescription */}
 
-        <div className="flex flex-col justify-between gap-5">
+        <div className="flex flex-col justify-between gap-8">
           <div className="flex gap-[53px] border-[#E4E4E7] border-b-2">
             <p className="font-bold">Director </p>
             <p className="text-[16px] ">{info?.director}</p>
@@ -145,7 +173,7 @@ export const MobileDetail = ({ id }: Props) => {
             <ArrowRight />
           </Button>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols- lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols- lg:grid-cols-5  gap-4">
           {similar.map((movie: any) => (
             <Cards
               key={movie.id}

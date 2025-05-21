@@ -47,19 +47,19 @@ export const Hero = ({ current, count }: HeroProps) => {
     };
     nowPlaying();
   }, []);
-  console.log(upcoming, "upcoming");
+  // console.log(upcoming, "upcoming");
 
   return (
-    <div className="w-full  ">
+    <div className="w-full   ">
       <Carousel
         opts={{ loop: true }}
         plugins={[Autoplay({ delay: 4000 })]}
-        className=" w-full  "
+        className=" w-full "
       >
         <CarouselContent>
           {upcoming.map((el, index) => (
             <CarouselItem key={index} className=" ">
-              <div className="relative w-full h-[260px]  sm:h-[600px]">
+              <div className="relative w-full lg:h-[1000px]    sm:h-[600px]">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
                   alt={el.title}
@@ -68,9 +68,9 @@ export const Hero = ({ current, count }: HeroProps) => {
                 />
 
                 {/* gradient */}
-                <div className="sm:hidden sm:block absolute inset-0  z-10"></div>
+                <div className="sm:hidden  absolute inset-0  z-10"></div>
 
-                <div className="  hidden md:block md:absolute z-10  p-4 space-y-3  md:top-[100px]   md:justify-center md:items-center ">
+                <div className="  hidden lg:block lg:absolute lg:z-10  lg:p-4 lg:space-y-3  lg:top-[100px]  lg:h-fit lg:justify-center lg:items-center ">
                   <ComContent
                     title={el.title}
                     vote_average={Number(el.vote_average).toFixed(1)}
@@ -80,7 +80,7 @@ export const Hero = ({ current, count }: HeroProps) => {
               </div>
               {/* Text content */}
 
-              <div className=" block md:hidden relative h-[260px]">
+              <div className=" block lg:hidden sm:relative sm:h-[260px]">
                
                 <MobileContent
                   title={el.title}

@@ -12,18 +12,18 @@ import { TopRatedMovies } from "./_components/TopRatedMovies";
 
 const Home = () => {
  return (
-    <div className="w-full min-h-screen">
-      <div className="px-6 mt-10">
+    <div className="w-full ">
+      <div className=" mt-10 ">
           <Hero
             current={1}
             count={5}
           />
         
       </div>
-
+<div className="px-8">
 <UpcomingMovies/>
 <PopularMovies/>
-<TopRatedMovies/>
+<TopRatedMovies/></div>
       {/* <MovieFooter /> */}
     </div>
   );

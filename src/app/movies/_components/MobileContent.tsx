@@ -19,9 +19,9 @@ overview: string ;
 
         <p className="text-sm  w-fit h-fit ">{overview}</p>
 
-                <Button
+           <Button
           variant="default"
-          className="  hover:bg-gray-300 hover:text-black text-secondary-foreground text-sm w-fit px-4 py-2 rounded-md flex items-center gap-2"
+          className="bg-[white]  hover:bg-gray-300 hover:text-black text-secondary-foreground text-sm w-fit px-4 py-2 rounded-md flex items-center gap-2"
         >
           <Play className="w-4 h-4 " />
           Watch Trailer
