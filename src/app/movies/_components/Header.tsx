@@ -13,17 +13,16 @@ import {
   ChevronRight,
   Sun,
   Search,
- 
 } from "lucide-react";
 
 import { useTheme } from "next-themes";
 import { MobileSearch } from "./MobileSearch";
 import { useEffect, useState } from "react";
 import { searchMovie } from "@/hooks/SearchMovieApi";
-import  Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 const genres = [
-"Action",
+  "Action",
   "Adventure",
   "Animation",
   "Biography",
@@ -56,37 +55,22 @@ export const Header = () => {
   const { setTheme, resolvedTheme } = useTheme();
   const isDarkThemeActive = resolvedTheme === "dark";
   const toggleTheme = () => setTheme(isDarkThemeActive ? "light" : "dark");
-const[search, setSearch]=useState("")
-const [results, setResults] = useState<any[]>([]);
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState<any[]>([]);
 
-//  const searchHandler=(event:any)=>{
-//   setSearch(event.target.value);
-// };
-// console.log(search);
+  useEffect(() => {
+    const delayDebounce = setTimeout(async () => {
+      if (search.trim() !== "") {
+        const movies = await searchMovie(search);
+        setResults(movies.slice(0, 5));
+      } else {
+        setResults([]);
+      }
+    });
 
-
-// const handleSearch = async () => {
-//  if (search.trim() !== "") {
-//    const movies = await searchMovie(search );
-//    setResults(movies);
-//  } else {
-//    setResults([]);
-//  }
-// }
-
-useEffect(() => {
-  const delayDebounce = setTimeout(async () => {
-    if (search.trim() !== "") {
-      const movies = await searchMovie(search);
-      setResults(movies.slice(0,5));
-    } else {
-      setResults([]);
-    }
-  }); 
-
-  return () => clearTimeout(delayDebounce); // ← өмнөх debounce-г цуцална
-}, [search]);
-// console.log(results)
+    return () => clearTimeout(delayDebounce);
+  }, [search]);
+  // console.log(results)
   return (
     <div className=" relative   sm:w-full flex items-center  justify-between px-6 py-4 shadow bg ">
       {/* <Detail id={id} /> */}
@@ -95,17 +79,19 @@ useEffect(() => {
         <Film className="w-5 h-5" />
         Movie Z
       </div>
-{/* _______________________________ */}
+      {/* _______________________________ */}
       <div className="hidden lg:block lg:flex lg:items-center lg:justify-center lg:gap-4">
-        {/* Genre Dropdown */}
-        <Popover >
+        <Popover>
           <PopoverTrigger asChild className="hidden  lg:block">
-            <Button variant="outline" className="hidden  lg:block lg:flex lg:items-center lg:gap-2">
+            <Button
+              variant="outline"
+              className="hidden  lg:block lg:flex lg:items-center lg:gap-2"
+            >
               <ChevronDown className=" w-5 h-5" />
               Genre
             </Button>
           </PopoverTrigger>
-<PopoverContent className="sm:hidden  lg:block lg:w -[577px]  lg:block ">
+          <PopoverContent className="sm:hidden  lg:block lg:w -[577px]  lg:block ">
             <div className="text-sm font-bold">Genres</div>
             <div className="border-b-[1px]  grid p-[4px] size-16px">
               See lists of movies by gene
@@ -126,52 +112,52 @@ useEffect(() => {
           </PopoverContent>
         </Popover>
 
-        {/* Search */}
-        <div className="lg:relative hidden lg:block lg:flex  lg:items-center  lg:border lg:w-[379px] lg:h-[36px] lg:rounded-lg lg:border-[#E4E4E7] p-1 ">
-       <Search/> 
-          {/* onClick={handleSearch} */}
+        {/* Search-------------- */}
+        <div className="relative   lg:block lg:flex  lg:items-center  lg:border lg:w-[379px] lg:h-[36px] lg:rounded-lg lg:border-[#E4E4E7] p-1 ">
+          <Search />
           <Input
             className="border-none outline-none  focus:outline-none shadow-none"
             placeholder="Search.."
             onChange={(e) => setSearch(e.target.value)}
-         
             value={search}
           />
         </div>
-      
+
         {results.length > 0 && (
-<div className="absolute top-[103px] left-[466px] w-[577px] bg-white dark:bg-black border rounded shadow-lg max-h-[729px]  z-50 p-2">
-   {results.map((movie) => (
-<Link href={`/movie/${movie.id}`} key={movie.id}>
-<div className="flex items-center w-[553px] h-[116px] gap-5 border-b hover:bg-gray-100 dark:hover:bg-gray-800 p-2">
-<Image
-           src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-           alt={movie.title}
-           width={50}
-           height={75}
-           className="rounded"
-         />
-<div>
-<p className="font-semibold">{movie.title}</p>
-<p className="text-sm text-gray-500">{movie.release_date}</p>
-</div>
-</div>
-</Link>
-   ))}
-   <Link
-                href={search}
-                className="block  text-grey-500 hover:underline mt-2"
-              >
-               <p className="text-[24px]">See all results for "{search}"</p> 
+          <div className="absolute top-[60px] left-[466px] w-[577px] bg-white dark:bg-black  rounded-lg border border-[#E4E4E7] max-h-[729px]  z-50 p-2">
+            {results.map((movie) => (
+              <Link href={`/movie/${movie.id}`} key={movie.id}>
+                <div className="flex items-center w-[553px] h-[116px] gap-8 border-b hover:bg-gray-100 dark:hover:bg-gray-800 p-2">
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                    alt={movie.title}
+                    width={50}
+                    height={75}
+                    className="rounded"
+                  />
+                  <div>
+                    <p className="font-semibold">{movie.title}</p>
+                    <p className="text-sm ">⭐ /10</p>
+                    <p className="text-sm text-gray-500">
+                      {movie.release_date}
+                    </p>
+                  </div>
+                </div>
               </Link>
-</div>
-)} 
-           
-            
-         </div>
-      <div className=""><MobileSearch /></div>
-        
-      
+            ))}
+            {/* <Link
+              href={search}
+              className="block  text-grey-500 hover:underline mt-2"
+            >
+              <p className="text-[24px]">See all results for "{search}"</p>
+            </Link> */}
+          </div>
+        )}
+      </div>
+      <div className="">
+        <MobileSearch />
+      </div>
+
       <Button size="icon" onClick={toggleTheme}>
         {isDarkThemeActive ? <Sun /> : <Moon />}
       </Button>

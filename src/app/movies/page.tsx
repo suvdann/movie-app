@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { Header } from "./_components/Header";
 import { Hero } from "./_components/Hero";
@@ -9,22 +9,16 @@ import { PopularMovies } from "./_components/PopularMovies";
 import { TopRatedMovies } from "./_components/TopRatedMovies";
 // import {  MobileHero } from "./_components/Mobile";
 
-
 const Home = () => {
- return (
+  return (
     <div className="w-full ">
-    
-          <Hero
-            current={1}
-            count={5}
-          />
-        
-      
-<div className="px-8">
-<UpcomingMovies/>
-<PopularMovies/>
-<TopRatedMovies/></div>
-      {/* <MovieFooter /> */}
+      <Hero current={1} count={5} />
+
+      <div className="px-8">
+        <UpcomingMovies />
+        <PopularMovies />
+        <TopRatedMovies />
+      </div>
     </div>
   );
 };

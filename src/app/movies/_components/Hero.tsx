@@ -59,18 +59,15 @@ export const Hero = ({ current, count }: HeroProps) => {
         <CarouselContent>
           {upcoming.map((el, index) => (
             <CarouselItem key={index} className=" ">
-              <div className="relative w-full lg:h-[calc(100vh-68px)] lg:p-8    sm:h-[600px]">
+              <div className="h-[246px] w-full relative  lg:h-[calc(100vh-68px)] lg:p-8">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
                   alt={el.title}
                   fill
-                  className="object-cover  "
+                  className="object-cover "
                 />
 
-                {/* gradient */}
-                <div className="sm:hidden  absolute inset-0  z-10"></div>
-
-                <div className="  hidden lg:block lg:absolute lg:z-10  lg:p-4 lg:space-y-3  lg:top-[100px]  lg:h-fit lg:justify-center lg:items-center ">
+                <div className="hidden lg:block lg:absolute lg:z-10  lg:p-4 lg:space-y-3  lg:top-[100px]  lg:h-fit lg:justify-center lg:items-center ">
                   <ComContent
                     title={el.title}
                     vote_average={Number(el.vote_average).toFixed(1)}
@@ -78,9 +75,8 @@ export const Hero = ({ current, count }: HeroProps) => {
                   />
                 </div>
               </div>
-              {/* Text content */}
 
-              <div className=" block lg:hidden sm:relative sm:h-[260px]">
+              <div className=" block lg:hidden  sm:h-[260px]">
                 <MobileContent
                   title={el.title}
                   vote_average={Number(el.vote_average).toFixed(1)}
