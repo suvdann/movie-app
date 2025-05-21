@@ -59,7 +59,7 @@ export const Hero = ({ current, count }: HeroProps) => {
         <CarouselContent>
           {upcoming.map((el, index) => (
             <CarouselItem key={index} className=" ">
-              <div className="relative w-full lg:h-[1000px]    sm:h-[600px]">
+              <div className="relative w-full lg:h-[1000px] lg:p-8    sm:h-[600px]">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
                   alt={el.title}
@@ -81,13 +81,11 @@ export const Hero = ({ current, count }: HeroProps) => {
               {/* Text content */}
 
               <div className=" block lg:hidden sm:relative sm:h-[260px]">
-               
                 <MobileContent
                   title={el.title}
                   vote_average={Number(el.vote_average).toFixed(1)}
                   overview={el.overview}
                 />
-                
               </div>
             </CarouselItem>
           ))}
