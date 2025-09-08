@@ -5,9 +5,11 @@ import { getTopRatedApi } from "@/hooks/TopRatedApi";
 export default async function TopRatedPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const page = Number(searchParams.page ?? 1);
+  const sp = await searchParams; // ← await
+  const page = Number(sp.page ?? 1);
+
   const data = await getTopRatedApi(page);
   const movies = data?.results ?? [];
   const totalPages = Math.min(data?.total_pages ?? 1, 500); // TMDB 500 хүртэл
@@ -15,7 +17,7 @@ export default async function TopRatedPage({
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex items-end justify-between mb-4">
-        <h1 className="text-2xl font-bold">Top Rated </h1>
+        <h1 className="text-2xl font-bold">Top Rated</h1>
         <p className="text-sm text-muted-foreground">
           Page {page} of {totalPages} · {data?.total_results?.toLocaleString()}{" "}
           titles
@@ -48,16 +50,19 @@ export default async function TopRatedPage({
         ))}
       </div>
 
-      {/* Pagination: Prev  [1] [2] [3] ... Next */}
+      {/* Pagination */}
       <nav className="flex items-center gap-2 mt-8">
         {page > 1 && (
-          <PageBtn href={`/movies/popular?page=${page - 1}`} label="Previous" />
+          <PageBtn
+            href={`/movies/top-rated?page=${page - 1}`}
+            label="Previous"
+          />
         )}
 
         <PageNumber current={page} total={totalPages} />
 
         {page < totalPages && (
-          <PageBtn href={`/movies/popular?page=${page + 1}`} label="Next" />
+          <PageBtn href={`/movies/top-rated?page=${page + 1}`} label="Next" />
         )}
       </nav>
     </main>
@@ -77,7 +82,6 @@ function PageBtn({ href, label }: { href: string; label: string }) {
 }
 
 function PageNumber({ current, total }: { current: number; total: number }) {
-  // 1, current-1, current, current+1, total (эллипсис дагалдуулна)
   const pages = Array.from(
     new Set(
       [1, current - 1, current, current + 1, total].filter(
@@ -94,7 +98,7 @@ function PageNumber({ current, total }: { current: number; total: number }) {
             <span className="px-2 text-muted-foreground">…</span>
           )}
           <Link
-            href={`/movies/popular?page=${p}`}
+            href={`/movies/top-rated?page=${p}`}
             className={`px-3 py-1 border rounded text-sm ${
               p === current
                 ? "bg-primary text-primary-foreground border-primary"

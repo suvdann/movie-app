@@ -2,35 +2,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMoviesByGenre } from "@/hooks/GenreApi";
 import { getSearchByGenre } from "@/hooks/GetSearchByGenre";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react"; // ⬅️ ChevronDown-ийг устгав
 
 export default async function GenrePage({
   params,
   searchParams,
 }: {
-  params: { id: string };
-  searchParams: { page?: string; name?: string };
+  params: Promise<{ id: string }>; // ⬅️ Promise
+  searchParams: Promise<{ page?: string; name?: string }>; // ⬅️ Promise
 }) {
-  const genreId = params.id;
-  const page = Number(searchParams.page ?? 1);
-  const name = searchParams.name ?? "Genre";
+  const { id: genreId } = await params; // ⬅️ await
+  const sp = await searchParams; // ⬅️ await
 
-  // genres жагсаалт + тухайн жанрын кинонуудыг зэрэг татна
+  const page = Number(sp.page ?? 1);
+  const name = sp.name ?? "Genre";
+
   const [genresData, moviesData] = await Promise.all([
     getSearchByGenre(),
     getMoviesByGenre(genreId, page),
   ]);
 
-  const genres = genresData.genres;
-  const movies = moviesData.results;
+  const genres = genresData?.genres ?? [];
+  const movies = moviesData?.results ?? [];
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
-      {/* TOP Title */}
       <h1 className="text-3xl font-semibold mb-5">Search filter</h1>
 
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
-        {/* ---------- LEFT: Genre filter ---------- */}
+        {/* LEFT */}
         <div>
           <p className="font-semibold text-2xl">Genres</p>
           <p className="text-sm text-muted-foreground mb-4">
@@ -58,15 +58,17 @@ export default async function GenrePage({
           </div>
         </div>
 
-        <div className="block lg:border " />
+        <div className="block lg:border" />
+
+        {/* RIGHT */}
         <section>
           <p className="mb-4 text-sm">
-            {moviesData.total_results?.toLocaleString()} titles in “{name}”
+            {moviesData?.total_results?.toLocaleString()} titles in “{name}”
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {movies.map((m: any) => (
-              <Link key={m.id} href={`/movie/${m.id}`} className="group">
+              <Link key={m.id} href={`/details/${m.id}`} className="group">
                 <div className="relative aspect-[2/3] overflow-hidden rounded">
                   <Image
                     src={
@@ -90,7 +92,7 @@ export default async function GenrePage({
             ))}
           </div>
 
-          {/* ---------- Pagination ---------- */}
+          {/* Pagination */}
           <div className="flex items-center gap-2 mt-8">
             {page > 1 && (
               <PageBtn
@@ -101,7 +103,7 @@ export default async function GenrePage({
               />
             )}
             <span className="text-sm">Page {page}</span>
-            {page < moviesData.total_pages && (
+            {page < (moviesData?.total_pages ?? 1) && (
               <PageBtn
                 href={`/genre/${genreId}?name=${encodeURIComponent(
                   name
@@ -116,7 +118,6 @@ export default async function GenrePage({
   );
 }
 
-/* ---------- Helper component for pagination ---------- */
 function PageBtn({ href, label }: { href: string; label: string }) {
   return (
     <Link

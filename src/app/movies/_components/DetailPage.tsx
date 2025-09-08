@@ -18,17 +18,17 @@ import { DetailSkeleton } from "./DetailSkelton";
 
 type Props = {
   id: string;
-  title: string;
-  date: string;
-  duration: string;
-  rating: number;
-  totalraters: number;
-  genre: string[];
-  overview: string;
-  director: string;
-  writers: string[];
-  stars: string[];
-  videoId: string | undefined;
+  // title: string;
+  // date: string;
+  // duration: string;
+  // rating: number;
+  // totalraters: number;
+  // genre: string[];
+  // overview: string;
+  // director: string;
+  // writers: string[];
+  // stars: string[];
+  // videoId: string | undefined;
 };
 export const Detail = ({ id }: Props) => {
   const [movie, setMovie] = useState<any>(null);
@@ -38,8 +38,6 @@ export const Detail = ({ id }: Props) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [showTrailer, setShowTrailer] = useState(false);
-
-  const [moreLike, setMoreLike] = useState<any>(null);
 
   const formatRuntime = (minutes: number): string => {
     const h = Math.floor(minutes / 60);
@@ -72,8 +70,6 @@ export const Detail = ({ id }: Props) => {
 
   return (
     <div className="px-[108px] ">
-      {/* <Skeleton className="h-4 w-[250px]" /> */}
-      {/* <Button variant="outline"  className="bg-red border" onClick={movieImformation}> click</Button> */}
       <div className="flex justify-center  flex-col">
         <p className="font-bold text-[36px]">{movie.title}</p>
         <p>
@@ -93,7 +89,7 @@ export const Detail = ({ id }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex h-[428px]">
+      <div className="flex gap-4 h-[428px]">
         <Card className="w-[290px]">
           <div className="relative  h-[233px] sm:h-[428px] overflow-hidden rounded-t-lg m-0 p-0">
             <Image
@@ -136,7 +132,7 @@ export const Detail = ({ id }: Props) => {
           )}
         </Card>
       </div>
-      {/* MovieDescription */}
+
       <div className="flex flex-col justify-between gap-5">
         <div className="flex  gap-5 mt-[32px]">
           {movie.genres.map((genre: any) => (

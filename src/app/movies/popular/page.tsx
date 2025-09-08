@@ -1,23 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getPopularApi } from "@/hooks/PopularApi";
-import { Cards } from "../_components/Card";
-import { useState } from "react";
-import {
-  GridSkeleton,
-  SectionHeaderSkeleton,
-} from "../_components/CardSkelton";
-// Хэрэв та өөрийн Cards компонентыг ашиглах бол дараах импортын замаа төслийнхөө дагуу соль:
 
 export default async function PopularPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const page = Number(searchParams.page ?? 1);
+  const sp = await searchParams; // ← await хийж авна
+  const page = Number(sp.page ?? 1); // ← sp.page ашиглана
+
   const data = await getPopularApi(page);
   const movies = data?.results ?? [];
-  const totalPages = Math.min(data?.total_pages ?? 1, 500); // TMDB 500 хүртэл
+  const totalPages = Math.min(data?.total_pages ?? 1, 500);
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-8">
@@ -29,7 +24,6 @@ export default async function PopularPage({
         </p>
       </div>
 
-      {/* Хэрэв та Cards компонентыг хэрэглэх бол доорх <div>–ийн оронд map дотор <Cards .../> тавь */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {movies.map((m: any) => (
           <Link key={m.id} href={`/details/${m.id}`} className="group">
@@ -55,27 +49,7 @@ export default async function PopularPage({
           </Link>
         ))}
       </div>
-      {/* 
-      {isLoading ? (
-        <>
-          <SectionHeaderSkeleton />
-          <GridSkeleton count={10} />
-        </>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 content-visibility-auto">
-          {soonMovie.map((el) => (
-            <Cards
-              key={el.id}
-              id={String(el.id)}
-              PosterPath={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
-              VoteAverage={Number(el.vote_average).toFixed(1)}
-              title={el.title}
-            />
-          ))}
-        </div>
-      )} */}
 
-      {/* Pagination: Prev  [1] [2] [3] ... Next */}
       <nav className="flex items-center gap-2 mt-8">
         {page > 1 && (
           <PageBtn href={`/movies/popular?page=${page - 1}`} label="Previous" />
@@ -104,7 +78,6 @@ function PageBtn({ href, label }: { href: string; label: string }) {
 }
 
 function PageNumber({ current, total }: { current: number; total: number }) {
-  // 1, current-1, current, current+1, total (эллипсис дагалдуулна)
   const pages = Array.from(
     new Set(
       [1, current - 1, current, current + 1, total].filter(

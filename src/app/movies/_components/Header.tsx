@@ -78,18 +78,18 @@ export const Header = () => {
 
     fetchData();
   }, [search]);
-  useEffect(() => {
-    const onDocMouseDown = (e: MouseEvent) => {
-      if (
-        searchWrapRef.current &&
-        !searchWrapRef.current.contains(e.target as Node)
-      ) {
-        setResults([]); // dropdown хаана
-      }
-    };
-    document.addEventListener("mousedown", onDocMouseDown);
-    return () => document.removeEventListener("mousedown", onDocMouseDown);
-  }, []);
+  // useEffect(() => {
+  //   const onDocMouseDown = (e: MouseEvent) => {
+  //     if (
+  //       searchWrapRef.current &&
+  //       !searchWrapRef.current.contains(e.target as Node)
+  //     ) {
+  //       setResults([]); // dropdown хаана
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", onDocMouseDown);
+  //   return () => document.removeEventListener("mousedown", onDocMouseDown);
+  // }, []);
   // console.log(results)
   return (
     <div className=" relative   sm:w-full flex items-center  justify-between px-6 py-4 shadow bg ">
@@ -136,7 +136,7 @@ export const Header = () => {
         {results.length > 0 && (
           <div className="absolute top-[60px] left-[466px] w-[577px] bg-white dark:bg-black  rounded-lg border border-[#E4E4E7] max-h-[729px]  z-50 p-2">
             {results.map((movie) => (
-              <Link href={`/movie/${movie.id}`} key={movie.id}>
+              <Link href={`/details/${movie.id}`} key={movie.id}>
                 <div className="flex items-center w-[553px] h-[116px] gap-8 border-b hover:bg-gray-100 dark:hover:bg-gray-800 p-2">
                   <Image
                     src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}

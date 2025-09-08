@@ -49,11 +49,15 @@ export const SearchByGenre = ({
         <p className="font-semibold text-[24px]">Search by genre</p>
         <p>See lists of movies by genre </p>
       </div>
-      <div className="flex gap-3 w-full flex-wrap">
+      <div className="flex gap-3 w-full flex-wrap cursor-pointer">
         {genres.map((el, index) => (
           <Link key={index} href={`/genre/${el?.id}`}>
             <div key={index}>
-              <Button onClick={closeGenre} className="h-[25px]">
+              <Button
+                variant={"outline"}
+                onClick={closeGenre}
+                className="h-[25px] rounded-full"
+              >
                 {el?.name} <ChevronRight />
               </Button>
             </div>

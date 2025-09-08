@@ -17,16 +17,16 @@ import Link from "next/link";
 // export const Detail = ({ id }: { id: string })
 type Props = {
   id: string;
-  title: string;
-  date: string;
-  duration: string;
-  rating: number;
-  totalraters: number;
-  genre: string[];
-  overview: string;
-  director: string;
-  writers: string[];
-  stars: string[];
+  // title: string;
+  // date: string;
+  // duration: string;
+  // rating: number;
+  // totalraters: number;
+  // genre: string[];
+  // overview: string;
+  // director: string;
+  // writers: string[];
+  // stars: string[];
 };
 export const MobileDetail = ({ id }: Props) => {
   const [movie, setMovie] = useState<any>(null);
