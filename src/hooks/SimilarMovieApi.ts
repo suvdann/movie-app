@@ -10,6 +10,6 @@ export const getSimilarMovie=async(id:string,page = 1)=>{
 })
    console.log(result.data)
       const allSimilar = result.data.results;
-    const firstFive = allSimilar.slice(0, 5);
+    const firstFive = allSimilar;
    return firstFive;
 }

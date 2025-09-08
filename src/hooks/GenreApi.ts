@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getUpcomingApi = async (page: number = 1) => {
+export const getMoviesByGenre = async (genreId: string, page = 1) => {
   const result = await axios.get(
-    `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
+    `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=en-US&page=${page}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -10,6 +10,6 @@ export const getUpcomingApi = async (page: number = 1) => {
       },
     }
   );
-  console.log(result.data, "ENd ");
-  return result?.data;
+
+  return result.data; // { page, results: [], total_pages, ... }
 };
